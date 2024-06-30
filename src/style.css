@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.scrollbar-small::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; 
+  }
+  
+  .scrollbar-small::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.5); /* Color del thumb */
+    border-radius: 4px;  /* Bordes redondeados */
+  }
+  
+  .scrollbar-small::-webkit-scrollbar-track {
+    background-color: rgba(240, 240, 240, 0.8); /* Color del track */
+  }
+  
+  /* Para Firefox */
+  .scrollbar-small {
+    scrollbar-width: thin;  /* Hace el scrollbar más delgado */
+    scrollbar-color: rgba(100, 100, 100, 0.5) rgba(240, 240, 240, 0.8);
+  }

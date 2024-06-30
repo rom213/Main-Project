@@ -1,0 +1,91 @@
+import { useState } from 'react'
+
+const useDragAndDropRpa = (filterRpa, setFilterRpa) => {
+  const [changeOrderRpa, setChangeOrderRpa] = useState(false)
+
+  const startDrag = (e, item) => {
+    e.dataTransfer.setData('itemID', item.id)
+  }
+
+  const draggingOver = (e) => {
+    e.preventDefault()
+  }
+
+  const onDrop = (e, targetIndex) => {
+    e.preventDefault()
+    const itemID = e.dataTransfer.getData('itemID')
+    const currentIndex = filterRpa.findIndex((rpa) => rpa.id === itemID)
+
+    if (currentIndex !== -1 && currentIndex !== targetIndex) {
+      const newArrayRpa = [...filterRpa]
+      const draggedItem = newArrayRpa[currentIndex]
+
+      newArrayRpa.splice(currentIndex, 1)
+      newArrayRpa.splice(targetIndex, 0, draggedItem)
+
+      setFilterRpa(newArrayRpa)
+      setChangeOrderRpa(true)
+    }
+  }
+
+  return {
+    changeOrderRpa,
+    startDrag,
+    draggingOver,
+    onDrop
+  }
+}
+
+export default useDragAndDropRpa
+
+
+"use client";
+import React, { useState } from "react";
+
+const DropComponent = ({ children }) => {
+  const [dragging, setDragging] = useState(false);
+  const [data, setData] = useState(false);
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+
+    const dragData = JSON.parse(
+      event?.dataTransfer?.getData("application/json") ?? "{}"
+    );
+    console.log("DROP", dragData);
+    setData(dragData);
+    setDragging(false);
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (event) => {
+    setDragging(false);
+  };
+
+  return (
+    <>
+      <div
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        style={{
+          width: "100%",
+          height: "300px",
+          display: "flex",
+          flexDirection: "column",
+          marginTop: "10px",
+          backgroundColor: dragging ? "red" : "green",
+        }}
+      >
+        {children}
+      </div>
+      <h2 className="bg-slate-50">{data}</h2>
+    </>
+  );
+};
+
+export default DropComponent;
