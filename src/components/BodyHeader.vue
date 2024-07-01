@@ -1,22 +1,69 @@
 <script setup lang="ts">
-    import { useNavigationStore } from "../store/navigation";
-    const navigationStore = useNavigationStore();
+import { ref, toRaw } from "vue";
+import { useNavigationStore } from "../store/navigation";
+
+const navigationStore = useNavigationStore();
+const editTitle = ref(true);
+const tempTitle = ref(navigationStore.project.title);
+const error = ref(0);
+
+const showMessage = (valError: number) => {
+    error.value = valError;
+    setTimeout(() => {
+        error.value = 0;
+    }, 4000);
+};
+
+const editTitleAccion = () => {
+    if (!editTitle.value) {
+        tempTitle.value = navigationStore.project.title;
+
+    }
+    editTitle.value = !editTitle.value;
+};
+
+const handleSubmit = () => {
+    if (tempTitle.value !== "") {
+        navigationStore.project.title = tempTitle.value;
+        editTitle.value = true;
+        return
+    }
+    editTitle.value = true;
+    tempTitle.value = navigationStore.project.title
+    showMessage(1);
+
+};
 </script>
 
 <template>
     <div class="grid gap-6">
         <div class="flex justify-between">
             <div class="flex items-center gap-3 relative">
-                <h2 class="text-4xl font-bold">{{ navigationStore.project.title }}</h2>
+                <h2 v-if="editTitle" class="text-4xl font-bold">{{ navigationStore.project.title }}</h2>
+                <form @submit.prevent="handleSubmit" class="grid">
+                    <input v-model="tempTitle" v-if="!editTitle" type="text" class="text-4xl font-bold pl-1 border border-black" />
+                    <div v-if="error === 1" class="text-red-400 absolute w-96 top-10 left-1">Por favor escribe un titulo
+                        valido</div>
+                </form>
+
                 <div class="flex gap-2">
-                    <div class="w-5 h-5 bg-blue-200  rounded-md flex items-center justify-center">
+                    <button v-if="!editTitle" v-on:click="handleSubmit">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-7 hover:text-green-500 cursor-pointer">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+                    </button>
+                    <div v-if="editTitle" @click="editTitleAccion"
+                        class="w-5 h-5 bg-blue-200  rounded-md flex items-center justify-center cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4 text-blue-600">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
                     </div>
-                    <div class="w-5 h-5 bg-blue-200 rounded-md flex items-center justify-center">
+                    <div v-if="editTitle" class="w-5 h-5 bg-blue-200 rounded-md flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4 text-blue-600">
                             <path stroke-linecap="round" stroke-linejoin="round"

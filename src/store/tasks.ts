@@ -44,8 +44,13 @@ export const useTaskStore = defineStore('tasks', () => {
 
     tasks.value[currentIndex].status = taskStatus
     if (currentIndex !== -1 && dropIndex !== -1) {
-      const [draggedTask] = tasks.value.splice(currentIndex, 1);
-      tasks.value.splice(dropIndex, 0, draggedTask);
+      if (dropIndex>=1) {
+        const [draggedTask] = tasks.value.splice(currentIndex, 1);
+        tasks.value.splice(dropIndex-1, 0, draggedTask);
+      }else{
+        const [draggedTask] = tasks.value.splice(currentIndex, 1);
+        tasks.value.splice(dropIndex, 0, draggedTask);
+      }
 
     }
   };
@@ -89,20 +94,14 @@ export const useTaskStore = defineStore('tasks', () => {
     tasks.value = tasks.value.filter(task => task.id !== id);
   };
 
-  const updateTask = (id: number) => {
-    const index = tasks.value.findIndex(task => task.id === id);
-    if (index !== -1) {
-      tasks.value[index] = valuesForms;
-    }
-  };
 
   const resetForm = () => {
     valuesForms.nombre = "";
     valuesForms.description = "";
     valuesForms.idProject = null;
-    valuesForms.importance=TaskImportance.Low;
-    valuesForms.id=0;
-    valuesForms.status=TaskStatus.Pending
+    valuesForms.importance = TaskImportance.Low;
+    valuesForms.id = 0;
+    valuesForms.status = TaskStatus.Pending
 
   }
 

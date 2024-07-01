@@ -15,6 +15,28 @@ const tasksStore = useTaskStore();
 const newTask = ref(false)
 const dragItem = ref<number | null>(null);
 
+
+
+
+const error = ref({
+    "error_descripcion": false,
+    "error_name": false
+})
+
+const showMessageErrorDescripcion = () => {
+    error.value.error_descripcion = true;
+    setTimeout(() => {
+        error.value.error_descripcion = false;
+    }, 4000);
+};
+
+const showMessageErrorName = () => {
+    error.value.error_name = true;
+    setTimeout(() => {
+        error.value.error_name = false;
+    }, 4000);
+};
+
 const hadleDragStart = (id: number | undefined) => {
     if (id) {
         dragItem.value = id
@@ -64,8 +86,14 @@ const modalCreate = () => {
 
 
 const submitTask = () => {
-    tasksStore.addTask(navigationStore.project.id);
-    newTask.value = false
+    if (tasksStore.valuesForms.description === "") {
+        showMessageErrorDescripcion();
+    } else if (tasksStore.valuesForms.nombre === "") {
+        showMessageErrorName()
+    } else {
+        tasksStore.addTask(navigationStore.project.id);
+        newTask.value = false
+    }
 }
 
 
@@ -85,7 +113,10 @@ const allTasksForStatusCompleted = computed(() => {
 
 <template>
     <div class="relative px-10 pt-32 overflow-auto max-h-[800px] scrollbar-small">
+
         <BodyHeader />
+
+        <!-- contente cards -->
         <div class="grid gap-1 grid-cols-3 py-7">
             <div class="relative  bg-blue-50 rounded-xl py-3 max-h-[800px] overflow-y-scroll scrollbar-small"
                 @dragover="handeleDragOver" @drop="handleDropChangeStatus(TaskStatus.Pending)">
@@ -119,17 +150,29 @@ const allTasksForStatusCompleted = computed(() => {
                                     {{ taskImportance }}
                                 </option>
                             </select>
+                            <div class="grid relative">
+                                <input v-model="tasksStore.valuesForms.nombre" name="nombre" id="nombre" type="text"
+                                    class="border focus:border-black focus:outline-none pl-1 py-1 rounded-md"
+                                    placeholder="Nombre de la tarea">
+                                <span v-if="error.error_name" class="text-[12px] text-red-600 absolute -bottom-4">Add
+                                    valid data to the task
+                                    name</span>
+                            </div>
+                            <div class="grid relative">
+                                <textarea v-model="tasksStore.valuesForms.description" name="description"
+                                    id="description"
+                                    class="border focus:border-black focus:outline-none pl-1 py-1 rounded-md"
+                                    placeholder="Escribe una descripción" rows="4"></textarea>
+                                <span v-if="error.error_descripcion"
+                                    class="text-[12px] text-red-600 absolute -bottom-5">Add valid data to the task
+                                    description</span>
+                            </div>
 
-                            <input v-model="tasksStore.valuesForms.nombre" name="nombre" id="nombre" type="text"
-                                class="border focus:border-black focus:outline-none pl-1 py-1 rounded-md"
-                                placeholder="Nombre de la tarea">
 
-                            <textarea v-model="tasksStore.valuesForms.description" name="description" id="description"
-                                class="border focus:border-black focus:outline-none pl-1 py-1 rounded-md"
-                                placeholder="Escribe una descripción" rows="4"></textarea>
                             <button class="flex justify-end pr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-green-500 cursor-pointer">
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="size-6 hover:text-green-500 cursor-pointer">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
