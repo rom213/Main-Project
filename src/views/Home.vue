@@ -1,8 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import Header from "../components/body/Header.vue";
 import Sidebar from "../components/body/Sidebar.vue";
-import { useRoute } from 'vue-router';
 
 // Estado para controlar la visibilidad del sidebar
 const isSidebarVisible = ref(true);
