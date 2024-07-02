@@ -123,7 +123,7 @@ const allTasksForStatusCompleted = computed(() =>
                         @dragstart="handleDragStart(task.id)" @dragover="handleDragOver"
                         @drop="handleDrop(task.id, TaskStatus.Pending)"
                         @touchstart="handleTouchStart(task.id)"
-                        @touchmove="handleTouchMove" @touchend="handleDrop(task.id, TaskStatus.InProgress)"
+                        @touchmove="handleTouchMove" @touchend="handleDrop(task.id, TaskStatus.Pending)"
                         :class="{ 'bg-slate-200': task.id === dragItem }" @click="(addValuesTask(task))">
                         <TaskCard :task="task" />
 
@@ -163,7 +163,7 @@ const allTasksForStatusCompleted = computed(() =>
 
             <div class="relative  bg-blue-50 rounded-xl py-3 max-h-[800px] overflow-y-scroll scrollbar-small"
                 @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.Completed)"
-                @touchmove="handleTouchMove" @touchend="handleTouchEnd(TaskStatus.Pending)">
+                @touchmove="handleTouchMove" @touchend="handleTouchEnd(TaskStatus.Completed)">
                 <div class=" px-4 grid gap-3">
                     <div class="flex gap-3 justify-between">
                         <div class="flex gap-2 items-center">
