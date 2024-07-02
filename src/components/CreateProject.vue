@@ -48,7 +48,7 @@ const submitForm = () => {
 
 <template>
     <form @submit.prevent="submitForm"
-        class="fixed grid gap-3 z-50 w-96 bg-white left-1/3 bottom-1/3 rounded-xl p-6 shadow-md">
+        class="absolute grid gap-3 z-50 w-96 bg-white left-1/3 bottom-1/3 rounded-xl p-6 shadow-md">
         <div class="font-semibold">Create new project</div>
         <div class="grid relative">
             <span class="font-light">name</span>

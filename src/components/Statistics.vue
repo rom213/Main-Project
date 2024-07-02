@@ -1,21 +1,31 @@
 <script setup lang="ts">
-    import { computed } from "vue";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 import { useProjectStore } from "../store/projects";
+import { useNavigationStore } from "../store/navigation";
 import { useTaskStore } from "../store/tasks";
 import { ProjectStatus, TaskStatus } from "../enums/status";
 import CardProject from "./CardProject.vue";
+import { Project } from "../types/projectTypes";
 
 
-    const projectStore= useProjectStore()
-    const taskStore= useTaskStore()
+const projectStore = useProjectStore()
+const navigationStore = useNavigationStore()
+const taskStore = useTaskStore()
+const router = useRouter()
 
-    const allProjectsForStatusActive=computed(()=>{
-        return projectStore.findProjectsByStatus(ProjectStatus.Active)
-    })
+const allProjectsForStatusActive = computed(() => {
+    return projectStore.findProjectsByStatus(ProjectStatus.Active)
+})
 
-    const allProjectsForStatusInactive=computed(()=>{
-        return projectStore.findProjectsByStatus(ProjectStatus.Inactive)
-    })
+const allProjectsForStatusInactive = computed(() => {
+    return projectStore.findProjectsByStatus(ProjectStatus.Inactive)
+})
+
+const redirectProject = (project: Project) => {
+    navigationStore.project = project;
+    router.push('/projects')
+}
 </script>
 
 <template>
@@ -88,8 +98,8 @@ import CardProject from "./CardProject.vue";
             <div class="text-xl font-semibold">Active Projects</div>
         </div>
         <div class="grid grid-cols-2 gap-4">
-            <div v-for="project in allProjectsForStatusActive">
-                <CardProject :project="project"/>
+            <div class="cursor-pointer" v-for="project in allProjectsForStatusActive" @click="redirectProject(project)">
+                <CardProject :project="project" />
             </div>
         </div>
 
@@ -99,7 +109,7 @@ import CardProject from "./CardProject.vue";
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div v-for="project in allProjectsForStatusInactive">
-                <CardProject :project="project"/>
+                <CardProject :project="project" />
             </div>
         </div>
 
