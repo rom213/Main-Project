@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, toRaw } from "vue";
+import { ref } from "vue";
 import { useNavigationStore } from "../store/navigation";
+import { useTaskStore } from "../store/tasks";
 
 const navigationStore = useNavigationStore();
+const taskStore = useTaskStore();
 const editTitle = ref(true);
-const tempTitle = ref(navigationStore.project.title);
+const tempTitle = ref(navigationStore.project.name);
 const error = ref(0);
 
 const showMessage = (valError: number) => {
@@ -16,7 +18,7 @@ const showMessage = (valError: number) => {
 
 const editTitleAccion = () => {
     if (!editTitle.value) {
-        tempTitle.value = navigationStore.project.title;
+        tempTitle.value = navigationStore.project.name;
 
     }
     editTitle.value = !editTitle.value;
@@ -24,24 +26,33 @@ const editTitleAccion = () => {
 
 const handleSubmit = () => {
     if (tempTitle.value !== "") {
-        navigationStore.project.title = tempTitle.value;
+        navigationStore.project.name = tempTitle.value;
         editTitle.value = true;
         return
     }
     editTitle.value = true;
-    tempTitle.value = navigationStore.project.title
+    tempTitle.value = navigationStore.project.name
     showMessage(1);
 
 };
+
+const handleDragOver = (event: DragEvent) => {
+    event.preventDefault();
+};
+
+const handleDropTask = () => {
+    taskStore.deleteTask(navigationStore.idTaskDrop)
+}
 </script>
 
 <template>
     <div class="grid gap-6">
         <div class="flex justify-between">
             <div class="flex items-center gap-3 relative">
-                <h2 v-if="editTitle" class="text-4xl font-bold">{{ navigationStore.project.title }}</h2>
+                <h2 v-if="editTitle" class="text-4xl font-bold">{{ navigationStore.project.name }}</h2>
                 <form @submit.prevent="handleSubmit" class="grid">
-                    <input v-model="tempTitle" v-if="!editTitle" type="text" class="text-4xl font-bold pl-1 border border-black" />
+                    <input v-model="tempTitle" v-if="!editTitle" type="text"
+                        class="text-4xl font-bold pl-1 border border-black" />
                     <div v-if="error === 1" class="text-red-400 absolute w-96 top-10 left-1">Por favor escribe un titulo
                         valido</div>
                 </form>
@@ -63,26 +74,12 @@ const handleSubmit = () => {
                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
                     </div>
-                    <div v-if="editTitle" class="w-5 h-5 bg-blue-200 rounded-md flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4 text-blue-600">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-                        </svg>
-                    </div>
+
                 </div>
 
             </div>
             <div>
                 <div class="flex items-center space-x-2">
-                    <button class="px-3 py-1 rounded-lg flex gap-1 items-center text-blue-400">
-                        <div class="w-5 h-5 bg-blue-200 text-blue-700 rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                        </div>Invite
-                    </button>
                     <div class="flex -space-x-2">
                         <img class="w-8 h-8 rounded-full border-2 border-white"
                             src="https://randomuser.me/api/portraits/men/1.jpg" alt="User 1">
@@ -101,36 +98,21 @@ const handleSubmit = () => {
         </div>
         <div>
             <div>
-                <div class="flex relative space-x-2">
+                <div class="flex relative space-x-2" @dragover="handleDragOver" @drop="handleDropTask()">
                     <button
                         class="flex justify-around items-center px-1 w-36 py-2 border border-gray-300 rounded-md text-gray-700">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v4a1 1 0 01-1 1h-1l-2 7h-2l-2-7h-4l-2 7H6l-2-7H3a1 1 0 01-1-1V4z">
-                            </path>
+                        drag here
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                         </svg>
-                        Filter by
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
+
                     </button>
 
-                    <!--                         <div class="absolute w-36 h-6 bg-red-200 -left-2 top-10">
-                            <div class="flex">creation order <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-                                </svg>
-                            </div>
-                            <div></div>
-                            <div></div>
-                        </div> -->
+
                 </div>
             </div>
-            <div></div>
         </div>
     </div>
 </template>

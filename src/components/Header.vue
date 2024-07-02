@@ -16,7 +16,7 @@ const filteredProjects = computed(() => {
 
 
 <template>
-  <header class="bg-white shadow p-4 flex justify-between items-center fixed w-full z-10">
+  <header class="bg-white shadow p-4 flex justify-between items-center fixed w-full z-10 min-w-[840px]">
     <!-- Logo -->
     <div class="flex items-center space-x-2 px-11">
       <img src="https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png" alt="Logo" class="h-8 w-8">
@@ -28,7 +28,7 @@ const filteredProjects = computed(() => {
       <input v-model="searchQuery" type="text" placeholder="Search for project"
         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
       <div class="absolute hidden group-focus-within:block w-full bg-white shadow-md  rounded-sm flex flex-col gap-2 pb-5 rounded-b-xl">
-        <div class="hover:bg-slate-300 h-[35px] px-4" v-if="searchQuery !== ''" v-for="project in filteredProjects" :key="project.id">{{ project.title }}</div>
+        <div class="hover:bg-slate-300 h-[35px] px-4" v-if="searchQuery !== ''" v-for="project in filteredProjects" :key="project.id">{{ project.name }}</div>
       </div>
     </div>
 

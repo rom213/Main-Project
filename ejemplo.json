@@ -1,7 +1,7 @@
 [
     {
         "id":"1",
-        "nombre":"projecto 1",
+        "name":"projecto 1",
         "tasks":[
             {
                 "id":"1"
@@ -16,7 +16,7 @@
     },
     {
         "id":"2",
-        "nombre":"projecto 2",
+        "name":"projecto 2",
         "tasks":[
             {
                 "id":"1"

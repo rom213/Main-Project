@@ -9,10 +9,11 @@ import { ref } from 'vue';
 export const useNavigationStore= defineStore('navigation',()=>{
     const projectStore = useProjectStore();
     const project = ref<Project>(projectStore.projects[0])
+    const idTaskDrop = ref();
 
     const setProject=(index:any)=>{
         project.value=projectStore.projects[index]
     }
 
-    return { project, setProject };
+    return { project, setProject, idTaskDrop };
 })

@@ -9,26 +9,26 @@ export const useTaskStore = defineStore('tasks', () => {
 
 
   const sampleData: Task[] = [
-    { id: 1, importance: TaskImportance.High, nombre: 'Research Quantum Computing', description: 'Explore the potentials of quantum algorithms for optimization.', idProject: 1, status: TaskStatus.Pending },
-    { id: 2, importance: TaskImportance.Half, nombre: 'Design Marketing Campaign', description: 'Draft initial concept for the spring product launch.', idProject: 1, status: TaskStatus.Completed },
-    { id: 3, importance: TaskImportance.Low, nombre: 'Update Employee Handbook', description: 'Incorporate new policies and guidelines for remote work.', idProject: 4, status: TaskStatus.Pending },
-    { id: 4, importance: TaskImportance.High, nombre: 'Develop Mobile App', description: 'Implement key features for the new fitness tracking app.', idProject: 5, status: TaskStatus.InProgress },
-    { id: 5, importance: TaskImportance.Half, nombre: 'Create Budget Report', description: 'Compile Q1 financial data for board review.', idProject: 6, status: TaskStatus.Completed },
-    { id: 6, importance: TaskImportance.Low, nombre: 'Conduct Customer Survey', description: 'Gather feedback on the latest software update.', idProject: 1, status: TaskStatus.Pending },
-    { id: 7, importance: TaskImportance.High, nombre: 'Organize Hackathon', description: 'Plan event logistics and coordinate with speakers.', idProject: 8, status: TaskStatus.InProgress },
-    { id: 8, importance: TaskImportance.Half, nombre: 'Develop Training Module', description: 'Create materials for new employee onboarding.', idProject: 7, status: TaskStatus.Pending },
-    { id: 9, importance: TaskImportance.Low, nombre: 'Update Website Content', description: 'Revise and update the blog and news sections.', idProject: 1, status: TaskStatus.Completed },
-    { id: 10, importance: TaskImportance.High, nombre: 'Implement Security Protocols', description: 'Enhance network security measures against cyber threats.', idProject: 7, status: TaskStatus.InProgress },
-    { id: 11, importance: TaskImportance.Half, nombre: 'Analyze Market Trends', description: 'Examine the latest industry trends for strategic planning.', idProject: 7, status: TaskStatus.Pending },
-    { id: 12, importance: TaskImportance.Low, nombre: 'Clean Data Sets', description: 'Perform data cleaning for the analytics project.', idProject: 7, status: TaskStatus.Completed },
-    { id: 13, importance: TaskImportance.High, nombre: 'Draft Legal Contract', description: 'Prepare the contract for the new partnership agreement.', idProject: 2, status: TaskStatus.Pending },
-    { id: 14, importance: TaskImportance.Half, nombre: 'Redesign Product Packaging', description: 'Create new designs for eco-friendly packaging.', idProject: 8, status: TaskStatus.InProgress },
-    { id: 15, importance: TaskImportance.Low, nombre: 'Set Up Cloud Infrastructure', description: 'Configure and optimize cloud servers for better performance.', idProject: 16, status: TaskStatus.Completed },
-    { id: 16, importance: TaskImportance.High, nombre: 'Prepare for Investor Meeting', description: 'Compile presentation materials and financial forecasts.', idProject: 1, status: TaskStatus.Pending },
-    { id: 17, importance: TaskImportance.Half, nombre: 'Conduct Code Review', description: 'Review code for the latest software release and ensure quality.', idProject: 1, status: TaskStatus.InProgress },
-    { id: 18, importance: TaskImportance.Low, nombre: 'Plan Team Building Activities', description: 'Organize activities to boost team morale and collaboration.', idProject: 4, status: TaskStatus.Completed },
-    { id: 19, importance: TaskImportance.High, nombre: 'Launch New Product Line', description: 'Execute the launch plan for the new product line.', idProject: 1, status: TaskStatus.Pending },
-    { id: 20, importance: TaskImportance.Half, nombre: 'Optimize SEO Strategy', description: 'Improve search engine optimization for better online visibility.', idProject: 8, status: TaskStatus.InProgress },
+    { id: 1, importance: TaskImportance.High, name: 'Research Quantum Computing', description: 'Explore the potentials of quantum algorithms for optimization.', idProject: 1, status: TaskStatus.Pending },
+    { id: 2, importance: TaskImportance.Half, name: 'Design Marketing Campaign', description: 'Draft initial concept for the spring product launch.', idProject: 1, status: TaskStatus.Completed },
+    { id: 3, importance: TaskImportance.Low, name: 'Update Employee Handbook', description: 'Incorporate new policies and guidelines for remote work.', idProject: 4, status: TaskStatus.Pending },
+    { id: 4, importance: TaskImportance.High, name: 'Develop Mobile App', description: 'Implement key features for the new fitness tracking app.', idProject: 5, status: TaskStatus.InProgress },
+    { id: 5, importance: TaskImportance.Half, name: 'Create Budget Report', description: 'Compile Q1 financial data for board review.', idProject: 6, status: TaskStatus.Completed },
+    { id: 6, importance: TaskImportance.Low, name: 'Conduct Customer Survey', description: 'Gather feedback on the latest software update.', idProject: 1, status: TaskStatus.Pending },
+    { id: 7, importance: TaskImportance.High, name: 'Organize Hackathon', description: 'Plan event logistics and coordinate with speakers.', idProject: 8, status: TaskStatus.InProgress },
+    { id: 8, importance: TaskImportance.Half, name: 'Develop Training Module', description: 'Create materials for new employee onboarding.', idProject: 7, status: TaskStatus.Pending },
+    { id: 9, importance: TaskImportance.Low, name: 'Update Website Content', description: 'Revise and update the blog and news sections.', idProject: 1, status: TaskStatus.Completed },
+    { id: 10, importance: TaskImportance.High, name: 'Implement Security Protocols', description: 'Enhance network security measures against cyber threats.', idProject: 7, status: TaskStatus.InProgress },
+    { id: 11, importance: TaskImportance.Half, name: 'Analyze Market Trends', description: 'Examine the latest industry trends for strategic planning.', idProject: 7, status: TaskStatus.Pending },
+    { id: 12, importance: TaskImportance.Low, name: 'Clean Data Sets', description: 'Perform data cleaning for the analytics project.', idProject: 7, status: TaskStatus.Completed },
+    { id: 13, importance: TaskImportance.High, name: 'Draft Legal Contract', description: 'Prepare the contract for the new partnership agreement.', idProject: 2, status: TaskStatus.Pending },
+    { id: 14, importance: TaskImportance.Half, name: 'Redesign Product Packaging', description: 'Create new designs for eco-friendly packaging.', idProject: 8, status: TaskStatus.InProgress },
+    { id: 15, importance: TaskImportance.Low, name: 'Set Up Cloud Infrastructure', description: 'Configure and optimize cloud servers for better performance.', idProject: 16, status: TaskStatus.Completed },
+    { id: 16, importance: TaskImportance.High, name: 'Prepare for Investor Meeting', description: 'Compile presentation materials and financial forecasts.', idProject: 1, status: TaskStatus.Pending },
+    { id: 17, importance: TaskImportance.Half, name: 'Conduct Code Review', description: 'Review code for the latest software release and ensure quality.', idProject: 1, status: TaskStatus.InProgress },
+    { id: 18, importance: TaskImportance.Low, name: 'Plan Team Building Activities', description: 'Organize activities to boost team morale and collaboration.', idProject: 4, status: TaskStatus.Completed },
+    { id: 19, importance: TaskImportance.High, name: 'Launch New Product Line', description: 'Execute the launch plan for the new product line.', idProject: 1, status: TaskStatus.Pending },
+    { id: 20, importance: TaskImportance.Half, name: 'Optimize SEO Strategy', description: 'Improve search engine optimization for better online visibility.', idProject: 8, status: TaskStatus.InProgress },
   ];
 
   let idTask = sampleData.length + 1;
@@ -64,6 +64,11 @@ export const useTaskStore = defineStore('tasks', () => {
     }
   };
 
+  const changeTask = (task: Task) => {
+    const taskIndex = tasks.value.findIndex(tas => tas.id === task.id);
+    tasks.value[taskIndex]=task
+  };
+
 
   const orderTasks = () => {
     tasks.value = tasks.value.reverse()
@@ -85,7 +90,7 @@ export const useTaskStore = defineStore('tasks', () => {
     valuesForms.id = idTask++;
     valuesForms.idProject = idProject;
     tasks.value.push({ ...valuesForms });
-    valuesForms.nombre = "";
+    valuesForms.name = "";
     valuesForms.description = "";
     valuesForms.idProject = null;
   };
@@ -96,7 +101,7 @@ export const useTaskStore = defineStore('tasks', () => {
 
 
   const resetForm = () => {
-    valuesForms.nombre = "";
+    valuesForms.name = "";
     valuesForms.description = "";
     valuesForms.idProject = null;
     valuesForms.importance = TaskImportance.Low;
@@ -108,7 +113,7 @@ export const useTaskStore = defineStore('tasks', () => {
   const valuesForms = reactive<Task>({
     id: 0,
     importance: TaskImportance.Low,
-    nombre: "",
+    name: "",
     description: "",
     idProject: null,
     status: TaskStatus.Pending,
@@ -117,7 +122,7 @@ export const useTaskStore = defineStore('tasks', () => {
   const valuesFormsEdit = reactive<Task>({
     id: 0,
     importance: TaskImportance.Low,
-    nombre: "",
+    name: "",
     description: "",
     idProject: null,
     status: TaskStatus.Pending,
@@ -137,6 +142,7 @@ export const useTaskStore = defineStore('tasks', () => {
     orderTasks,
     handleDrop,
     changeTaskStatus,
-    valuesFormsEdit
+    valuesFormsEdit,
+    changeTask
   };
 });

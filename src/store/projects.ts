@@ -1,58 +1,59 @@
-import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
-import { ProjectStatus } from '../enums/status'
+import { defineStore } from 'pinia';
+import { reactive, ref } from 'vue';
+import { ProjectStatus } from '../enums/status';
 import { Project } from '../types/projectTypes';
+
 const data = [
-    {id: 1, title: "Primer proyecto", description: "creación de panel admin", status: ProjectStatus.Active},
-    {id: 2, title: "Otro proyecto", description: "soluciones de software", status: ProjectStatus.Active},
-    {id: 3, title: "Proyecto de marketing", description: "desarrollo de campaña publicitaria", status: ProjectStatus.Active},
-    {id: 4, title: "Proyecto de e-commerce", description: "creación de tienda en línea", status: ProjectStatus.Active},
-    {id: 5, title: "Proyecto de migración", description: "migración de base de datos", status: ProjectStatus.Active},
-    {id: 6, title: "Proyecto de soporte", description: "implementación de sistema de soporte técnico", status: ProjectStatus.Active},
-    {id: 7, title: "Proyecto de automatización", description: "automatización de procesos internos", status: ProjectStatus.Active}
+    {id: 1, name: "Primer proyecto", description: "creación de panel admin", status: ProjectStatus.Active, color: "#FF5733"},
+    {id: 2, name: "Otro proyecto", description: "soluciones de software", status: ProjectStatus.Active, color: "#33FF57"},
+    {id: 3, name: "Proyecto de marketing", description: "desarrollo de campaña publicitaria", status: ProjectStatus.Active, color: "#3357FF"},
+    {id: 4, name: "Proyecto de e-commerce", description: "creación de tienda en línea", status: ProjectStatus.Active, color: "#FF33A1"},
+    {id: 5, name: "Proyecto de migración", description: "migración de base de datos", status: ProjectStatus.Active, color: "#33FFF1"},
+    {id: 6, name: "Proyecto de soporte", description: "implementación de sistema de soporte técnico", status: ProjectStatus.Active, color: "#A133FF"},
+    {id: 7, name: "Proyecto de automatización", description: "automatización de procesos internos", status: ProjectStatus.Active, color: "#FF8C33"}
 ];
 
+export const useProjectStore = defineStore('projects', () => {
+    const projects = ref<Array<Project>>(data);
 
-export const useProjectStore= defineStore('projects',()=>{
-    const projects = ref<Array<Project>>(data)
+    let idProject = data.length+1;
 
-    
-    let idProject = 0
+    const addProject = () => {
+        valuesForms.id = idProject++;
+        projects.value.push({...valuesForms});
+        valuesForms.name = "";
+        valuesForms.description = "";
+        valuesForms.color = "#009FBD";
+    };
 
-    const addProject=()=>{
-        valuesForms.id = idProject++
-        projects.value.push({...valuesForms})
-        valuesForms.title=""
-        valuesForms.description=""
-    }
+    const findProjectsByStatus = (status: ProjectStatus) => {
+        return projects.value.filter(project => project.status === status);
+    };
 
+    const deleteProject = (id: number) => {
+        projects.value = projects.value.filter(project => project.id !== id);
+    };
 
-    const findProjectsByStatus=(status: ProjectStatus)=>{
-        return projects.value.filter(project=> project.status===status);
-    }
-
-    const deleteProject=(id: number)=>{
-        projects.value = projects.value.filter(project=>project.id !== id)
-    }
-
-    const updateProject=(id: number)=>{
-        const index = projects.value.findIndex(project => project.id === id)
+    const updateProject = (id: number) => {
+        const index = projects.value.findIndex(project => project.id === id);
         if (index !== -1) {
-            projects.value[index].title = valuesForms.title
-            projects.value[index].description= valuesForms.description
+            projects.value[index].name = valuesForms.name;
+            projects.value[index].description = valuesForms.description;
+            projects.value[index].color = valuesForms.color;
         }
-    }
+    };
 
-    const searchProjectsByName=(title: String)=>{
-        return projects.value.filter(project=>project.title.toLowerCase().includes(title.toLowerCase()))
-    }
+    const searchProjectsByName = (name: string) => {
+        return projects.value.filter(project => project.name.toLowerCase().includes(name.toLowerCase()));
+    };
 
-    const valuesForms=reactive({
+    const valuesForms = reactive({
         id: idProject,
-        title:"",
-        description:"",
-        status:ProjectStatus.Active
-    }) 
+        name: "",
+        description: "",
+        status: ProjectStatus.Active,
+        color: "#009FBD"
+    });
 
-    return {valuesForms, addProject, projects, deleteProject, updateProject, findProjectsByStatus, searchProjectsByName};
-})
+    return { valuesForms, addProject, projects, deleteProject, updateProject, findProjectsByStatus, searchProjectsByName };
+});

@@ -3,7 +3,6 @@
     import { useProjectStore } from "../store/projects" 
     const projectsStore= useProjectStore();
     const submitForm=()=>{
-        alert("hola")
         projectsStore.addProject();
     }
 
@@ -18,9 +17,9 @@
   <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="submitForm">
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-        Title project
+        name project
       </label>
-      <input v-model="projectsStore.valuesForms.title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+      <input v-model="projectsStore.valuesForms.name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
