@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import { useTaskStore } from "../../store/tasks";
 import { useNavigationStore } from "../../store/navigation";
-import {  TaskStatus } from "../../enums/status";
+import { TaskStatus } from "../../enums/status";
 import { Task } from "../../types/taskTypes";
 import BodyHeader from "./BodyHeader.vue";
 import CardCreate from "../task/CardCreate.vue";
@@ -14,19 +14,12 @@ const tasksStore = useTaskStore();
 const newTask = ref(false);
 const dragItem = ref<number | null>(null);
 
-
-
-
-
-
 const handleDragStart = (id?: number) => {
     if (id !== undefined) {
         dragItem.value = id;
-        navigationStore.idTaskDrop=id;
+        navigationStore.idTaskDrop = id;
     }
 };
-
-
 
 const addValuesTask = (task: Task) => {
     tasksStore.valuesFormsEdit = task;
@@ -54,8 +47,23 @@ const toggleModalCreate = () => {
     newTask.value = !newTask.value;
 };
 
+const handleTouchStart = (id?: number) => {
+    if (id !== undefined) {
+        dragItem.value = id;
+        navigationStore.idTaskDrop = id;
+    }
+};
 
+const handleTouchMove = (event: TouchEvent) => {
+    event.preventDefault();
+};
 
+const handleTouchEnd = (taskStatus: TaskStatus) => {
+    if (dragItem.value !== null) {
+        tasksStore.changeTaskStatus(dragItem.value, taskStatus);
+        dragItem.value = null;
+    }
+};
 
 const allTasksForStatusPending = computed(() =>
     tasksStore.allTaskForProjectByStatus(TaskStatus.Pending, navigationStore.project.id)
@@ -81,7 +89,9 @@ const allTasksForStatusCompleted = computed(() =>
         <!-- contente cards -->
         <div class="grid gap-1 grid-cols-3 py-7">
             <div class="relative  bg-blue-50 rounded-xl py-3 max-h-[800px] overflow-y-scroll scrollbar-small"
-                @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.Pending)">
+                @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.Pending)"
+                @touchmove="handleTouchMove" @touchend="handleTouchEnd(TaskStatus.Pending)"
+                >
                 <div class=" px-4 grid gap-3">
                     <div class="flex gap-3 justify-between">
                         <div class="flex gap-2 items-center">
@@ -112,6 +122,8 @@ const allTasksForStatusCompleted = computed(() =>
                         v-for="(task) in allTasksForStatusPending" :key="task.id" :draggable="true"
                         @dragstart="handleDragStart(task.id)" @dragover="handleDragOver"
                         @drop="handleDrop(task.id, TaskStatus.Pending)"
+                        @touchstart="handleTouchStart(task.id)"
+                        @touchmove="handleTouchMove" @touchend="handleDrop(task.id, TaskStatus.InProgress)"
                         :class="{ 'bg-slate-200': task.id === dragItem }" @click="(addValuesTask(task))">
                         <TaskCard :task="task" />
 
@@ -121,7 +133,9 @@ const allTasksForStatusCompleted = computed(() =>
             </div>
 
             <div class="relative  bg-blue-50 rounded-xl py-3 max-h-[800px] overflow-y-scroll scrollbar-small"
-                @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.InProgress)">
+                @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.InProgress)"
+                @touchmove="handleTouchMove" @touchend="handleTouchEnd(TaskStatus.InProgress)"
+                >
                 <div class=" px-4 grid gap-3">
                     <div class="flex gap-3 justify-between">
                         <div class="flex gap-2 items-center">
@@ -136,6 +150,9 @@ const allTasksForStatusCompleted = computed(() =>
                         v-for="(task) in allTasksForStatusProgress" :key="task.id" :draggable="true"
                         @dragstart="handleDragStart(task.id)" @dragover="handleDragOver"
                         @drop="handleDrop(task.id, TaskStatus.InProgress)"
+
+                        @touchstart="handleTouchStart(task.id)"
+                        @touchmove="handleTouchMove" @touchend="handleDrop(task.id, TaskStatus.InProgress)"
                         :class="{ 'bg-slate-200': task.id === dragItem }" @click="(addValuesTask(task))">
                         <TaskCard :task="task" />
                     </div>
@@ -145,7 +162,8 @@ const allTasksForStatusCompleted = computed(() =>
 
 
             <div class="relative  bg-blue-50 rounded-xl py-3 max-h-[800px] overflow-y-scroll scrollbar-small"
-                @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.Completed)">
+                @dragover="handleDragOver" @drop="handleDropChangeStatus(TaskStatus.Completed)"
+                @touchmove="handleTouchMove" @touchend="handleTouchEnd(TaskStatus.Pending)">
                 <div class=" px-4 grid gap-3">
                     <div class="flex gap-3 justify-between">
                         <div class="flex gap-2 items-center">
@@ -160,6 +178,8 @@ const allTasksForStatusCompleted = computed(() =>
                         v-for="(task) in allTasksForStatusCompleted" :key="task.id" :draggable="true"
                         @dragstart="handleDragStart(task.id)" @dragover="handleDragOver"
                         @drop="handleDrop(task.id, TaskStatus.Completed)"
+                                                @touchstart="handleTouchStart(task.id)"
+                        @touchmove="handleTouchMove" @touchend="handleDrop(task.id, TaskStatus.Completed)"
                         :class="{ 'bg-slate-200': task.id === dragItem }" @click="(addValuesTask(task))">
                         <TaskCard :task="task" :completed="true" />
                     </div>

@@ -110,7 +110,7 @@ watch(() => props.task, (newTask) => {
                     </option>
                 </select>
 
-                <select v-model="tempTask.status" name="taskImportance" id="taskImportance"
+                <select v-model="tempTask.status" name="taskStatus" id="taskStatus"
                     class="h-8 px-3 py-1 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option v-for="TaskStatus in Object.values(TaskStatus)" :key="TaskStatus"
                         :value="TaskStatus">
