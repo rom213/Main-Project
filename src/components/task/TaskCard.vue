@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { TaskImportance, TaskStatus } from '../enums/status';
-import { useTaskStore } from '../store/tasks';
-import { Task } from '../types/taskTypes';
+import { TaskImportance, TaskStatus } from '../../enums/status';
+import { useTaskStore } from '../../store/tasks';
+import { Task } from '../../types/taskTypes';
 
 const tasksStore = useTaskStore();
 

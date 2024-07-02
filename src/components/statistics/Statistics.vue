@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useProjectStore } from "../store/projects";
-import { useNavigationStore } from "../store/navigation";
-import { useTaskStore } from "../store/tasks";
-import { ProjectStatus, TaskStatus } from "../enums/status";
-import CardProject from "./CardProject.vue";
-import { Project } from "../types/projectTypes";
+import { useProjectStore } from "../../store/projects";
+import { useNavigationStore } from "../../store/navigation";
+import { useTaskStore } from "../../store/tasks";
+import { ProjectStatus, TaskStatus } from "../../enums/status";
+import CardProject from "../project/CardProject.vue";
+import { Project } from "../../types/projectTypes";
 
 
 const projectStore = useProjectStore()

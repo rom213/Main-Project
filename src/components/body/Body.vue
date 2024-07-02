@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useTaskStore } from "../store/tasks";
-import { useNavigationStore } from "../store/navigation";
-import {  TaskStatus } from "../enums/status";
-import { Task } from "../types/taskTypes";
+import { useTaskStore } from "../../store/tasks";
+import { useNavigationStore } from "../../store/navigation";
+import {  TaskStatus } from "../../enums/status";
+import { Task } from "../../types/taskTypes";
 import BodyHeader from "./BodyHeader.vue";
-import CardCreate from "./CardCreate.vue";
-import TaskCard from "./TaskCard.vue";
+import CardCreate from "../task/CardCreate.vue";
+import TaskCard from "../task/TaskCard.vue";
 
 const navigationStore = useNavigationStore();
 const tasksStore = useTaskStore();
@@ -103,7 +103,7 @@ const allTasksForStatusCompleted = computed(() =>
                     <div class="bg-blue-300 h-1"></div>
                 </div>
                 <div class="grid gap-2 p-5">
-                    <div v-if="newTask" class="top-0 min-h-36 bg-white shadow-sm rounded-md p-2">
+                    <div v-if="newTask || (allTasksForStatusCompleted.length===0 && allTasksForStatusPending.length===0 && allTasksForStatusProgress.length===0) " class="top-0 min-h-36 bg-white shadow-sm rounded-md p-2">
                         <CardCreate :newTask="newTask" @update:newTask="toggleModalCreate" />
                     </div>
 

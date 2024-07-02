@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import CreateProject from "./CreateProject.vue";
-import { onMounted, ref, watch, computed } from "vue";
-import { useProjectStore } from "../store/projects";
-import { useNavigationStore } from "../store/navigation";
+import CreateProject from "../project/CreateProject.vue";
+import { ref, computed } from "vue";
+import { useProjectStore } from "../../store/projects";
+import { useNavigationStore } from "../../store/navigation";
 const navigationStore = useNavigationStore();
-import { ProjectStatus } from "../enums/status";
+import { ProjectStatus } from "../../enums/status";
+import { useRouter } from "vue-router";
 const projectStore = useProjectStore();
 const modalCreate = ref(false);
+
+const router= useRouter()
 
 const allProjectsActive = computed(() => {
     return projectStore.findProjectsByStatus(ProjectStatus.Active)
@@ -15,6 +18,11 @@ const allProjectsActive = computed(() => {
 const toogleModalCreate = () => {
     modalCreate.value = !modalCreate.value
 }
+
+const resetNavStore=()=>{
+    navigationStore.resetProjectNav();
+    router.push('/');
+}
 </script>
 
 <template>
@@ -22,8 +30,8 @@ const toogleModalCreate = () => {
     <div class="pt-32 ">
         <div class="pb-9">
             <div class="flex flex-col gap-3  px-10">
-                <router-link to="/">
-                    <div  class="flex gap-3 text-gray-500">
+                <div  @click="resetNavStore()">
+                    <div  class="flex gap-3 text-gray-500 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -32,7 +40,7 @@ const toogleModalCreate = () => {
                         <span>Home</span>
                     </div>
 
-                </router-link>
+                </div>
 
 
             </div>

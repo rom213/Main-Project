@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import Body from '../components/Body.vue';
-import Statistics from '../components/Statistics.vue';
+import Body from '../components/body/Body.vue';
+import Statistics from '../components/statistics/Statistics.vue';
 
 const routes = [
   { path: '/projects', component: Body },

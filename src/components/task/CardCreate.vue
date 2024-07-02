@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useTaskStore } from "../store/tasks";
-import { useNavigationStore } from "../store/navigation";
-import { TaskImportance } from "../enums/status";
+import { useTaskStore } from "../../store/tasks";
+import { useNavigationStore } from "../../store/navigation";
+import { TaskImportance } from "../../enums/status";
 import { ref, defineEmits } from "vue";
 
 defineProps<{

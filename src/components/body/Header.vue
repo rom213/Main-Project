@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useProjectStore } from '../store/projects.ts'
-import { useNavigationStore } from "../store/navigation";
+import { useProjectStore } from '../../store/projects.ts'
+import { useNavigationStore } from "../../store/navigation.ts";
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
-import { Project } from '../types/projectTypes.ts';
+import { Project } from '../../types/projectTypes.ts';
 import { useRouter } from 'vue-router';
 
 const projectStore = useProjectStore()

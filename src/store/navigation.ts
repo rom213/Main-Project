@@ -23,5 +23,9 @@ export const useNavigationStore= defineStore('navigation',()=>{
         project.value=projectStore.projects[index]
     }
 
-    return { project, setProject, idTaskDrop };
+    const resetProjectNav=()=>{
+        project.value=dataInit;
+    }
+
+    return { project, setProject, idTaskDrop, resetProjectNav };
 })

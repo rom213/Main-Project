@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useNavigationStore } from "../store/navigation";
-import { useProjectStore } from "../store/projects";
-import { useTaskStore } from "../store/tasks";
+import { useNavigationStore } from "../../store/navigation";
+import { useProjectStore } from "../../store/projects";
+import { useTaskStore } from "../../store/tasks";
 
 
 const navigationStore = useNavigationStore();

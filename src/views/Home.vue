@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import Header from "../components/Header.vue";
-import Sidebar from "../components/Sidebar.vue";
+import Header from "../components/body/Header.vue";
+import Sidebar from "../components/body/Sidebar.vue";
 import { useRoute } from 'vue-router';
 
 // Estado para controlar la visibilidad del sidebar
@@ -24,7 +24,7 @@ const toggleSidebar = () => {
       </div>
     </div>
 
-    <div class="flex justify-end p-2 fixed top-20 left-2">
+    <div class="flex justify-end p-2 fixed top-24 md:top-20 left-2 bg-white shadow-sm">
       <button @click="toggleSidebar">
         <div v-if="isSidebarVisible">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

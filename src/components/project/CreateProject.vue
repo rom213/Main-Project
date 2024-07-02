@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineEmits, ref } from "vue";
-import { useProjectStore } from "../store/projects";
+import { useProjectStore } from "../../store/projects";
 
 const projectStore = useProjectStore()
 
