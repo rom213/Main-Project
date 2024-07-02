@@ -15,7 +15,7 @@ const toggleSidebar = () => {
 <template>
   <div>
     <Header />
-    <div class="grid min-w-[1200px]" :class="isSidebarVisible ? 'grid-cols-10' : 'grid-cols-12'">
+    <div class="grid min-w-[1250px]" :class="isSidebarVisible ? 'grid-cols-10' : 'grid-cols-12'">
       <div v-if="isSidebarVisible" class="col-span-2">
         <Sidebar />
       </div>

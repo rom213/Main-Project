@@ -2,13 +2,21 @@ import { defineStore } from 'pinia'
 import { useProjectStore } from "./projects";
 import { Project } from '../types/projectTypes';
 import { ref } from 'vue';
+import { ProjectStatus } from '../enums/status';
 
 
 
 
 export const useNavigationStore= defineStore('navigation',()=>{
     const projectStore = useProjectStore();
-    const project = ref<Project>(projectStore.projects[0])
+    const dataInit={
+        color:"",
+        description:"",
+        id:100,
+        name:"",
+        status:ProjectStatus.Active
+    }
+    const project = ref<Project>(dataInit)
     const idTaskDrop = ref();
 
     const setProject=(index:any)=>{

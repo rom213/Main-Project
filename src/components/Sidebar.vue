@@ -22,7 +22,7 @@ const toogleModalCreate = () => {
     <div class="pt-32 ">
         <div class="pb-9">
             <div class="flex flex-col gap-3  px-10">
-                <router-link to="/home">
+                <router-link to="/">
                     <div  class="flex gap-3 text-gray-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -48,7 +48,7 @@ const toogleModalCreate = () => {
                     </svg>
                 </div>
             </div>
-            <router-link to="/">
+            <router-link to="/projects">
                 <div class="w-full flex gap-2 flex-col">
                 <div class="min-h-9 px-3 rounded-sm flex gap-3 justify-between group cursor-pointer hover:bg-blue-200 items-center"
                     v-for="(project, index) in allProjectsActive" :key="project.id"

@@ -78,6 +78,10 @@ export const useTaskStore = defineStore('tasks', () => {
     return tasks.value.filter(task => task.idProject === idProject && task.status === status);
   };
 
+  const allTaskByStatus = (status: TaskStatus) => {
+    return tasks.value.filter(task => task.status === status);
+  };
+
   const findTasksForIdProject = (idProject: number) => {
     return tasks.value.filter(task => task.idProject === idProject);
   };
@@ -143,6 +147,7 @@ export const useTaskStore = defineStore('tasks', () => {
     handleDrop,
     changeTaskStatus,
     valuesFormsEdit,
-    changeTask
+    changeTask,
+    allTaskByStatus
   };
 });

@@ -8,9 +8,8 @@ const data = [
     {id: 2, name: "Otro proyecto", description: "soluciones de software", status: ProjectStatus.Active, color: "#33FF57"},
     {id: 3, name: "Proyecto de marketing", description: "desarrollo de campaña publicitaria", status: ProjectStatus.Active, color: "#3357FF"},
     {id: 4, name: "Proyecto de e-commerce", description: "creación de tienda en línea", status: ProjectStatus.Active, color: "#FF33A1"},
-    {id: 5, name: "Proyecto de migración", description: "migración de base de datos", status: ProjectStatus.Active, color: "#33FFF1"},
-    {id: 6, name: "Proyecto de soporte", description: "implementación de sistema de soporte técnico", status: ProjectStatus.Active, color: "#A133FF"},
-    {id: 7, name: "Proyecto de automatización", description: "automatización de procesos internos", status: ProjectStatus.Active, color: "#FF8C33"}
+    {id: 5, name: "Proyecto de migración", description: "migración de base de datos", status: ProjectStatus.Inactive, color: "#33FFF1"},
+    {id: 7, name: "Proyecto de automatización", description: "automatización de procesos internos", status: ProjectStatus.Inactive, color: "#FF8C33"}
 ];
 
 export const useProjectStore = defineStore('projects', () => {
