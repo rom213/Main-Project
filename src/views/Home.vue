@@ -1,24 +1,8 @@
-<script setup lang="ts">
-import { ref, computed } from 'vue';
+<script setup>
+import { ref } from 'vue';
 import Header from "../components/Header.vue";
 import Sidebar from "../components/Sidebar.vue";
-import Body from "../components/Body.vue";
-import Statistics from "../components/Statistics.vue";
-
-const routes = {
-  '': Body,
-  '/home': Statistics
-}
-
-const currentPath = ref(window.location.hash.slice(1) || '')
-
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash.slice(1) || ''
-})
-
-const currentView = computed(() => {
-  return routes[currentPath.value] || NotFound
-})
+import { useRoute } from 'vue-router';
 
 // Estado para controlar la visibilidad del sidebar
 const isSidebarVisible = ref(true);
@@ -36,12 +20,12 @@ const toggleSidebar = () => {
         <Sidebar />
       </div>
       <div :class="isSidebarVisible ? 'col-span-8' : 'col-span-12'">
-        <component :is="currentView" />
+        <router-view />
       </div>
     </div>
 
     <div class="flex justify-end p-2 fixed top-20 left-2">
-      <button @click="toggleSidebar" class="">
+      <button @click="toggleSidebar">
         <div v-if="isSidebarVisible">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6">
